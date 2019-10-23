@@ -62,7 +62,7 @@ JMM可能带来**可见性**、**原子性**和**有序性**问题。所谓可�
 
 ## 可见性
 
-[可见性测试](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/VolatileDemo.java)
+[可见性测试](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/VolatileDemo.java)
 
 ```java
 class MyData{
@@ -169,7 +169,7 @@ main	 AtomicInteger type finally number value: 20000
 
 ## 有序性
 
-[有序性案例](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/ResortSeqDemo.java)
+[有序性案例](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/ResortSeqDemo.java)
 
 volatile可以保证**有序性**，也就是防止**指令重排序**。所谓指令重排序，就是出于优化考虑，CPU执行指令的顺序跟程序员自己编写的顺序不一致。就好比一份试卷，题号是老师规定的，是程序员规定的，但是考生（CPU）可以先做选择，也可以先做填空。
 
@@ -309,7 +309,7 @@ System.out.println(atomicReference.compareAndSet(user1,user2)); //false
 AtomicStampedReference.compareAndSet(expectedReference,newReference,oldStamp,newStamp);
 ```
 
-详见[ABADemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/ABADemo.java)。
+详见[ABADemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/ABADemo.java)。
 
 # 集合类不安全问题
 
@@ -379,7 +379,7 @@ public CopyOnWriteArraySet() {
 
 `HashMap`不是线程安全的，`Hashtable`是线程安全的，但是跟`Vector`类似，太重量级。所以也有类似CopyOnWriteMap，只不过叫`ConcurrentHashMap`。
 
-关于集合不安全类请看[ContainerNotSafeDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/ContainerNotSafeDemo.java)。
+关于集合不安全类请看[ContainerNotSafeDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/ContainerNotSafeDemo.java)。
 
 # Java锁
 
@@ -397,7 +397,7 @@ public CopyOnWriteArraySet() {
 
 就像有了家门的锁，厕所、书房、厨房就为你敞开了一样。可重入锁可以**避免死锁**的问题。
 
-详见[ReentrantLockDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/ReentrantLockDemo.java)。
+详见[ReentrantLockDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/ReentrantLockDemo.java)。
 
 ### 锁的配对
 
@@ -422,7 +422,7 @@ try{
 while (!atomicReference.compareAndSet(null, thread)) { }
 ```
 
-详见[SpinLockDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/SpinLockDemo.java)。
+详见[SpinLockDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/SpinLockDemo.java)。
 
 ## 读写锁/独占/共享锁
 
@@ -430,7 +430,7 @@ while (!atomicReference.compareAndSet(null, thread)) { }
 
 比如缓存，就需要读写锁来控制。缓存就是一个键值对，以下Demo模拟了缓存的读写操作，读的`get`方法使用了`ReentrantReadWriteLock.ReadLock()`，写的`put`方法使用了`ReentrantReadWriteLock.WriteLock()`。这样避免了写被打断，实现了多个线程同时读。
 
-[ReadWriteLockDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/ReadWriteLockDemo.java)
+[ReadWriteLockDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/ReadWriteLockDemo.java)
 
 ## Synchronized和Lock的区别
 
@@ -460,11 +460,11 @@ while (!atomicReference.compareAndSet(null, thread)) { }
 
 枚举类就像一个**简化的数据库**，枚举类名就像数据库名，枚举的项目就像数据表，枚举的属性就像表的字段。
 
-关于`CountDownLatch`和枚举类的使用，请看[CountDownLatchDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/CountDownLatchDemo.java)。
+关于`CountDownLatch`和枚举类的使用，请看[CountDownLatchDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/CountDownLatchDemo.java)。
 
 ## CyclicBarrier
 
-`CountDownLatch`是减，而`CyclicBarrier`是加，理解了`CountDownLatch`，`CyclicBarrier`就很容易。比如召集7颗龙珠才能召唤神龙，详见[CyclicBarrierDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/CyclicBarrierDemo.java)。
+`CountDownLatch`是减，而`CyclicBarrier`是加，理解了`CountDownLatch`，`CyclicBarrier`就很容易。比如召集7颗龙珠才能召唤神龙，详见[CyclicBarrierDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/CyclicBarrierDemo.java)。
 
 ## Semaphore
 
@@ -512,7 +512,7 @@ for (int i = 1; i <=6 ; i++) {
 
 需要注意的是`LinkedBlockingQueue`虽然是有界的，但有个巨坑，其默认大小是`Integer.MAX_VALUE`，高达21亿，一般情况下内存早爆了（在线程池的`ThreadPoolExecutor`有体现）。
 
-**API**：抛出异常是指当队列满时，再次插入会抛出异常；返回布尔是指当队列满时，再次插入会返回false；阻塞是指当队列满时，再次插入会被阻塞，直到队列取出一个元素，才能插入。超时是指当一个时限过后，才会插入或者取出。API使用见[BlockingQueueDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/BlockingQueueDemo.java)。
+**API**：抛出异常是指当队列满时，再次插入会抛出异常；返回布尔是指当队列满时，再次插入会返回false；阻塞是指当队列满时，再次插入会被阻塞，直到队列取出一个元素，才能插入。超时是指当一个时限过后，才会插入或者取出。API使用见[BlockingQueueDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/BlockingQueueDemo.java)。
 
 | 方法类型 | 抛出异常  | 返回布尔   | 阻塞     | 超时                     |
 | -------- | --------- | ---------- | -------- | ------------------------ |
@@ -522,7 +522,7 @@ for (int i = 1; i <=6 ; i++) {
 
 ## SynchronousQueue
 
-队列只有一个元素，如果想插入多个，必须等队列元素取出后，才能插入，只能有一个“坑位”，用一个插一个，详见[SynchronousQueueDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/SynchronousQueueDemo.java)。
+队列只有一个元素，如果想插入多个，必须等队列元素取出后，才能插入，只能有一个“坑位”，用一个插一个，详见[SynchronousQueueDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/SynchronousQueueDemo.java)。
 
 # Callable接口
 
@@ -562,7 +562,7 @@ public class CallableDemo {
 
 ## 传统模式
 
-传统模式使用`Lock`来进行操作，需要手动加锁、解锁。详见[ProdConsTradiDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/ProdConsTradiDemo.java)。
+传统模式使用`Lock`来进行操作，需要手动加锁、解锁。详见[ProdConsTradiDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/ProdConsTradiDemo.java)。
 
 ```java
 public void increment() throws InterruptedException {
@@ -589,7 +589,7 @@ public void increment() throws InterruptedException {
 
 ## 阻塞队列模式
 
-使用阻塞队列就不需要手动加锁了，详见[ProdConsBlockQueueDemo](https://github.com/MaJesTySA/JVM-JUC-Core/blob/master/src/thread/ProdConsBlockQueueDemo.java)。
+使用阻塞队列就不需要手动加锁了，详见[ProdConsBlockQueueDemo](https://github.com/theChrisWei/JVM-JUC-Core/blob/master/src/thread/ProdConsBlockQueueDemo.java)。
 
 ```java
 public void myProd() throws Exception {
